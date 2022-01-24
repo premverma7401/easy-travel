@@ -1,16 +1,15 @@
 import React from 'react';
+import { Box, Button, Card, CardActions, CardContent, CardMedia, Chip, Typography } from '@material-ui/core';
 import LocationOnIcon from '@material-ui/icons/LocationOn'
 import PhoneIcon from '@material-ui/icons/Phone'
 import Rating from '@material-ui/lab/Rating'
-
 import useStyles from './styles'
-import { Box, Button, Card, CardActions, CardContent, CardMedia, Chip, Typography } from '@material-ui/core';
 
 const PlaceDetails = ({ place, refProp, selected }) =>
 {
   const classes = useStyles();
 
-  if (selected) refProp?.current?.scrollIntoView();
+  if (selected) refProp?.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
 
   return (

@@ -10,9 +10,7 @@ const List = ({ places, childClicked, loading, rating, setRating, type, setType 
 
   useEffect(() =>
   {
-    const refs = Array(places?.length).fill().map((_, i) => elRefs[i] || createRef());
-    setElRefs(refs);
-
+    setElRefs((refs) => Array(places?.length).fill().map((_, i) => refs[i] || createRef()));
   }, [places])
 
   return <div className={classes.container}>
@@ -49,13 +47,14 @@ const List = ({ places, childClicked, loading, rating, setRating, type, setType 
           </FormControl>
           <Grid container className={classes.list} spacing={3}>
             {places?.map((place, i) => (
-              <Grid item key={i} xs={12}>
+              <Grid item key={i} xs={12} ref={elRefs[i]}>
                 <PlaceDetails place={place} selected={Number(childClicked) === i} refProp={elRefs[i]}
                 />
               </Grid>
             ))}
           </Grid>
-        </>)
+        </>
+      )
 
     }
   </div >

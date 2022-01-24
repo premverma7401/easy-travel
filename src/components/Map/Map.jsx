@@ -4,7 +4,6 @@ import { Paper, Typography, useMediaQuery } from "@material-ui/core";
 import { LocationOnOutlined } from "@material-ui/icons";
 import Rating from "@material-ui/lab/Rating";
 import useStyle from "./styles";
-import mapStyles from "./mapStyles";
 
 const Map = ({ setCoordinates, coordinates, setBounds, places, setChildClicked, weatherData }) =>
 {
@@ -19,7 +18,7 @@ const Map = ({ setCoordinates, coordinates, setBounds, places, setChildClicked, 
         center={coordinates}
         defaultZoom={14}
         margin={[50, 50, 50, 50]}
-        options={{ disableDefaultUI: true, zoomControl: true, styles: mapStyles }}
+        options={{ disableDefaultUI: true, zoomControl: true }}
         onChange={(e) =>
         {
           setCoordinates({ lat: e.center.lat, lng: e.center.lng });
@@ -30,8 +29,8 @@ const Map = ({ setCoordinates, coordinates, setBounds, places, setChildClicked, 
         {places?.map((place, i) => (
           <div
             className={classes.markerContainer}
-            lat={place.latitude}
-            lng={place.longitude}
+            lat={Number(place.latitude)}
+            lng={Number(place.longitude)}
             key={i}
           >
             {

@@ -19,6 +19,8 @@ const App = () =>
   const [rating, setRating] = useState('');
   const [autocomplete, setAutocomplete] = useState(null);
 
+
+  // get current location of the user
   useEffect(() =>
   {
     navigator.geolocation.getCurrentPosition(({ coords: { latitude, longitude } }) =>
@@ -27,6 +29,8 @@ const App = () =>
     })
   }, [])
 
+
+  // filter places based on the reviews from drop-down
   useEffect(() =>
   {
     const filterPlaces = places.filter((place) => place.rating > rating);
@@ -34,6 +38,7 @@ const App = () =>
   }, [rating])
 
 
+  // get all the places from api expect without name and no reviews
   useEffect(() =>
   {
     if (bounds.sw && bounds.ne)
@@ -42,7 +47,6 @@ const App = () =>
       getWeatherData(coordinates.lat, coordinates.lng).then((data) =>
       {
         setWeather(data);
-        console.log('weather', data);
       })
 
       getPlacesData(type, bounds.sw, bounds.ne).then((data) =>
@@ -55,11 +59,12 @@ const App = () =>
     }
   }, [type, bounds])
 
-
+  // auto complete search
   const onLoad = (autoc) =>
   {
     setAutocomplete(autoc)
   }
+  // based on location change the map's coordinates
   const onPlaceChanged = () =>
   {
     const lat = autocomplete.getPlace().geometry.location.lat();
@@ -84,7 +89,6 @@ const App = () =>
           setType={setType}
           rating={rating}
           setRating={setRating}
-
         />
       </Grid>
       <Grid item xs={12} md={8}>
@@ -95,7 +99,6 @@ const App = () =>
           places={filteredPlaces.length ? filteredPlaces : places}
           setChildClicked={setChildClicked}
           weatherData={weather}
-
         />
 
       </Grid>
